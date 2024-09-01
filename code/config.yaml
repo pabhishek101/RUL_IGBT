@@ -1,0 +1,30 @@
+train_data:
+  seq_length: 10
+  span: [15,30] #[5,10,15,20]
+  raw_data: ['df_Device2.pkl','df_Device3.pkl','df_Device4.pkl','df_Device5.pkl']
+  filter: [217, 191, 207,205]
+  datatype: "outsample"
+  para: [0.1,1,0.1]
+  loss: mean_squared_error # custom_loss(para)
+  epochs: 100
+  batch: 16
+  device: 2
+  train_pkl_path: "./data"
+
+test_data:
+  span: [15,30]
+  seq_length: 10
+  use_col: [0,1,'fft_std'] #avg_std,1,2,fft_std
+
+
+save_model:
+  time_format: "%Y-%m-%d_%H-%M-%S"
+  path: "./result"
+  model_name: "LSTM"
+  std_scaler: "./result/scaler_filename.joblib"
+
+
+
+
+  
+
