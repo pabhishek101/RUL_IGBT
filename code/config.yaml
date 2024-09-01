@@ -10,6 +10,7 @@ train_data:
   batch: 16
   device: 2
   train_pkl_path: "./data"
+  result_path: "./result"
 
 test_data:
   span: [15,30]
