@@ -3,8 +3,11 @@ import pandas as pd
 from sklearn.metrics import mean_squared_error,r2_score
 import matplotlib.pyplot as plt
 from save_model import curr_time
+from config_loader import load_config
 ## Evaluation of training data
 def evaluation_training_testing(lstm_estimator,X_train,y_train,X_test,y_test,device):
+  config=load_config()
+  result_path=config['train_data']['result_path']
   print('Training data...')
   y_pred_train = lstm_estimator.predict(X_train)
   mse_train = mean_squared_error(y_train, y_pred_train)
@@ -26,7 +29,7 @@ def evaluation_training_testing(lstm_estimator,X_train,y_train,X_test,y_test,dev
   output=[mse_train,mse_test,r2_train,r2_test]
   result=pd.DataFrame({'metrics':var,'result':output})
   
-  result.to_csv(f"./result_device{device}_{curr_time()}.csv")
+  result.to_csv(f"{result_path}/{device}_{curr_time()}.csv")
   plot_training_testing(y_train,y_pred_train,y_test,y_pred_test,device)
   return y_pred_train,y_pred_test,mse_train,mse_test,r2_train,r2_test
 
@@ -47,7 +50,7 @@ def plot_training_testing(y_train,y_pred_train,y_test,y_pred_test,device):
   plt.title(f'Testing Data {device}')
   plt.legend()
   plt.tight_layout()
-  plt.savefig(f'./result_device{device}_{curr_time()}.png')
+  plt.savefig(f'{result_path}/{device}_{curr_time()}.png')
   plt.show()
   
   
